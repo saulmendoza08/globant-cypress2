@@ -27,5 +27,22 @@ context('Example_01',()=>{
             .click();
         cy.contains('Completed').click();
     })
+    it('Test #4 : Assertions',()=>{
+        cy.get('.todo-list li').should('have.length',2);
+        cy.get('.new-todo').type("My long task #1{enter}");
+        cy.get('.todo-list li').should('have.length',3);
 
+        cy.get('label:contains("My long task #1")')
+            .parent().find('.toggle').click();
+
+        cy.get('label:contains("My long task #1")')
+            .parent().parent()
+            .should('have.class', 'completed');
+    })
+
+    //invertir la asercion por defecto
+    it.only('Test #5: Reversing th Defualt Assertion',()=>{
+        cy.get('button.close').should('not.exist');
+        cy.get('button.close'); 
+    });
 })
